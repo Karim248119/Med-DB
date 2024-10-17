@@ -8,10 +8,10 @@ module.exports = {
         secondary: "#159EEC",
         accent: "#BFD2F8",
         red: {
-          DEFAULT: "#F44336", // Your custom red
+          DEFAULT: "#F44336",
         },
         green: {
-          DEFAULT: "#4CAF50", // Your custom green
+          DEFAULT: "#4CAF50",
         },
       },
     },
