@@ -1,4 +1,4 @@
-const doctorsModule = require("../models/Doctor");
+const doctorsModule = require("../models/doctor.js");
 
 const controller = (req, res) => {
   res.status(200).render("index", {

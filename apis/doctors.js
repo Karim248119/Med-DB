@@ -1,4 +1,4 @@
-const doctorsModel = require("../models/Doctor");
+const doctorsModel = require("../models/doctor.js");
 const genericMethod = require("../models/generic.js");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
