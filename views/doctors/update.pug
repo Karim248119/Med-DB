@@ -1,0 +1,50 @@
+extends ../nav.pug
+
+block content
+  //- Form Container
+  div(class='w-full bg-b')
+    include ../mixins.pug
+    +title("Update Doctor") 
+    form(method='post' enctype="multipart/form-data" action=`/doctors/update/${doctor._id}` class="bg-primary text-white w-1/2 mx-auto")
+
+      //- Doctor's Name
+      div(class='')
+        input(type='text', placeholder="Name" id='name' name='name' required value=doctor.name class='w-full bg-primary p-2 border border-gray-300 focus:outline-none')
+
+      div(class="grid grid-cols-2 grid-rows-1")
+        //- Image (Optional)
+        div(class='flex justify-center items-center')
+          input(type='file' id='img' name='img' accept='image/*' class='w-full mx-auto p-2 border border-gray-300 rounded')
+
+        //- sp_id (Speciality Dropdown)
+        div(class='flex')
+          select(id='sp_id' name='sp_id' required class='w-full p-2 bg-primary h-full border border-gray-300 focus:outline-none')
+            each sp, index in specialities
+              option(value=sp.id selected=(sp.id == doctor.sp_id ? 'selected' : '')) #{sp.title}
+
+      //- Contacts Information
+      div(class="grid grid-cols-2")
+        //- Phone (Inside contacts)
+        div(class='')
+          input(type='text' placeholder="Phone" id='phone' name='contacts.phone' required value=doctor.contacts.phone class='w-full bg-primary p-2 border border-gray-300 focus:outline-none')
+
+        //- Facebook (Inside contacts)
+        div(class='')
+          input(type='text' placeholder="Facebook" id='facebook' name='contacts.facebook' value=doctor.contacts.facebook class='w-full bg-primary p-2 border border-gray-300 focus:outline-none')
+
+      div(class="grid grid-cols-2")
+        //- LinkedIn (Inside contacts)
+        div(class='')
+          input(type='text' placeholder="LinkedIn" id='linkedin' name='contacts.linkedin' value=doctor.contacts.linkedin class='w-full bg-primary p-2 border border-gray-300 focus:outline-none')
+
+        //- Instagram (Inside contacts)
+        div(class='')
+          input(type='text' placeholder="Instagram" id='instagram' name='contacts.instagram' value=doctor.contacts.instagram class='w-full bg-primary p-2 border border-gray-300 focus:outline-none')
+
+      //- Resume
+      div(class='flex')
+        textarea(id='resume' placeholder="Resume" name='resume' rows='4' required class='w-full bg-primary p-2 border border-gray-300 focus:outline-none')= doctor.resume
+
+      //- Submit Button
+      div(class='flex justify-end')
+        button(type='submit' class='bg-accent uppercase text-white px-4 py-2 w-full duration-300 hover:bg-secondary') Update

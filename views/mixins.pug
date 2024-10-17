@@ -1,0 +1,8 @@
+//- Mixin for a button
+mixin button(href, text, additionalClasses='')
+  a(href=href class=`px-4 py-2 rounded-full bg-primary hover:bg-secondary duration-300 text-white ${additionalClasses}`)
+    | #{text}
+
+//-Title
+mixin title(text, additionalClasses='')
+  h1(class=`text-4xl font-serif text-primary mb-5 ${additionalClasses}`) #{text}

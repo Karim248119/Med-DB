@@ -1,0 +1,19 @@
+extends ../nav.pug
+
+block content
+  //- Form Container
+  div(class='w-full bg-b')
+    include ../mixins.pug
+    +title("Add New Speciality") 
+    form(method='post' enctype="multipart/form-data" action='/specialities/add' class="bg-primary text-white w-1/2 mx-auto")
+
+      //- title
+      div(class='')
+        input(type='text', placeholder="Title" id='title' name='title' required class='w-full bg-primary p-2 border border-gray-300  focus:outline-none')
+      //- Image
+      div(class='flex justify-center items-center ')
+        input(type='file', id='img', name='img', accept='image/*', required, class='w-full mx-auto p-2 border border-gray-300 rounded')
+
+      //- Submit Button
+      div(class='flex justify-end')
+        button(type='submit' class='bg-accent uppercase text-white px-4 py-2 w-full duration-300  hover:bg-secondary') Submit

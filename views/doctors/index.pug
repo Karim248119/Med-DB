@@ -1,0 +1,70 @@
+extends ../nav
+
+block content
+  head
+    title Doctors List
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/css/style.css')
+    //- Include Font Awesome for icons
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+
+  body
+    include ../mixins.pug
+    +title("Doctors List") 
+    div(class='flex items-center gap-4 mb-4')
+      //- Search input
+      input(type='text', placeholder='Search by name', class='border flex-1 p-2 rounded-lg shadow-sm w-1/2')
+
+      //- Button to add a doctor
+      +button('/doctors/add', 'Add Doctor', 'capitalize transition-all p-2 xl:text-sm text-xs bg-blue-500 text-white rounded-md')
+
+    if doctors.length > 0
+      div(class='overflow-x-auto')
+        table(class='min-w-full table-auto border-collapse mx-auto')
+          thead(class='bg-primary text-white')
+            tr
+              th(class='border px-4 py-2') Image
+              th(class='border px-4 py-2') Name
+              th(class='border px-4 py-2') Speciality
+              th(class='border px-4 py-2') Phone
+              th(class='border px-4 py-2') Resume
+              th(class='border px-4 py-2') Contacts
+              th(class='border px-4 py-2') Actions
+          tbody
+            each doctor, index in doctors
+              tr(class=(index % 2 === 0 ? 'bg-white' : 'bg-blue-100'))
+                //- Doctor Image
+                td(class='border px-4 py-2 text-center')
+                  img(src=doctor.img, alt=doctor.name, class='h-16 w-16 object-cover rounded-full mx-auto')
+
+                //- Doctor Name, Speciality, Phone
+                td(class=' text-center px-4 py-2')= `Dr. ${doctor.name}`
+                td(class='border text-center px-4 py-2')= doctor.sp_id.title
+                td(class='border text-center px-4 py-2')= doctor.contacts.phone
+                td(class='border text-center px-4 py-2')= doctor.resume
+
+                //- Combine Facebook, LinkedIn, and Instagram into a "Contact" column
+                td(class='border text-center px-4 py-2 text-center text-xl')
+                  if doctor.contacts.facebook
+                    a(href=doctor.contacts.facebook, target='_blank')
+                      i(class='fab fa-facebook text-blue-600 mx-2')
+                  if doctor.contacts.linkedin
+                    a(href=doctor.contacts.linkedin, target='_blank')
+                      i(class='fab fa-linkedin text-blue-700 mx-2')
+                  if doctor.contacts.instagram
+                    a(href=doctor.contacts.instagram, target='_blank')
+                      i(class='fab fa-instagram text-pink-500 mx-2')
+
+                //- Actions (Update and Delete)
+                td(class='border text-center px-4 py-2')
+                  div(class='flex justify-center items-center gap-2')
+                    //- Update Button (Icon)
+                    a(href=`/doctors/update/${doctor._id}`, class='bg-secondary hover:bg-primary duration-300 px-3 shadow rounded')
+                      i(class='fas text-sm fa-pencil-alt text-white')  
+                    //- Delete Button (Icon) (ensure it sends a POST/DELETE request)
+                    form(action=`/doctors/delete/${doctor._id}`, method='POST', class='inline-block')
+                      button(type='submit', class='bg-red-500 hover:bg-red-800 duration-300 px-3 shadow rounded')
+                        i(class='fas text-sm fa-trash text-white')
+    else  
+      p No doctors found.

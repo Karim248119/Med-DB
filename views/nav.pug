@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    title My App
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    div(class='min-h-screen flex flex-col')
+
+      //- Navbar
+      nav(class='w-screen z-50')
+        //- Top section of the Navbar
+
+
+      //- Bottom section of the Navbar with links
+      div(class='bg-primary text-sm z-50')
+        div(class='bg-primary md:h-20 h-16 w-full flex justify-between items-center flex-row px-4 md:px-20 text-white z-30')   
+          p(class='text-white uppercase font-serif text-4xl')
+            | MED
+            span(class='text-secondary') ECAL
+
+          div(class='flex justify-center items-center gap-4')
+            //- Hard-coded links without using 'each'
+            a(href='/' class=(currentPath === '/' ? 'text-secondary font-semibold' : '') + ' capitalize transition-all p-1 xl:text-sm text-xs') Home
+            a(href='/doctors' class=(currentPath === '/doctors' ? 'text-secondary font-semibold' :"") + ' capitalize transition-all p-1 xl:text-sm text-xs') Doctors
+            a(href='/specialities' class=(currentPath === '/specialities' ? 'text-secondary font-semibold' : '') + ' capitalize transition-all p-1 xl:text-sm text-xs') specialities
+            a(href='/doctors' class=(currentPath === '/news' ? 'text-secondary font-semibold' : '') + ' capitalize transition-all p-1 xl:text-sm text-xs') News
+            a(href='/contact' class=(currentPath === '/users' ? 'text-secondary font-semibold' : '') + ' capitalize transition-all p-1 xl:text-sm text-xs') Users
+            a(href='/contact' class=(currentPath === '/appointments' ? 'text-secondary font-semibold ' : 'bg-accent text-primary px-2 py-1 rounded-full') + ' capitalize transition-all p-1 xl:text-sm text-xs') Appointments
+
+          p(class='text-accent uppercase font-serif text-xl block md:hidden')
+            | MED
+            span(class='text-white') ECAL
+
+        //- Mobile menu button
+        div(class='sm:hidden flex gap-2')
+          button Search
+          button(onclick='toggleMenu()') Menu
+
+      //- Main Content with Sidebar
+      div(class='flex justify-center bg-white flex-1')
+
+
+        //- Main Content Area
+        main(class='flex-1 p-6 bg-gray-100')
+          block content

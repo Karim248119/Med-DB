@@ -1,0 +1,51 @@
+extends ../nav
+
+block content
+  head
+    title Specialities List
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/css/style.css')
+    //- Include Font Awesome for icons
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+
+  body
+    include ../mixins.pug
+    +title("Specialities List") 
+    div(class='flex items-center gap-4 mb-4')
+      //- Search input
+      input(type='text', placeholder='Search by title', class='border flex-1 p-2 rounded-lg shadow-sm w-1/2')
+
+      //- Button to add a speciality
+      +button('/specialities/add', 'Add Speciality', 'capitalize transition-all p-2 xl:text-sm text-xs bg-blue-500 text-white rounded-md')
+
+    if specialities.length > 0
+      div(class='overflow-x-auto')
+        table(class='min-w-full table-auto border-collapse mx-auto')
+          thead(class='bg-primary text-white')
+            tr
+              th(class='border px-4 py-2') Image
+              th(class='border px-4 py-2') Title
+              th(class='border px-4 py-2') Actions
+          tbody
+            each speciality, index in specialities
+              tr(class=(index % 2 === 0 ? 'bg-white' : 'bg-blue-100'))
+                //- Speciality Image
+                td(class='border px-4 text-center py-2 text-center')
+                  img(src=speciality.img, alt=speciality.title, class='h-16 w-16 object-cover rounded mx-auto')
+
+                //- Speciality Title
+                td(class='border px-4 text-center py-2')= speciality.title
+
+                //- Actions (Update and Delete)
+                td(class='border px-4 text-center py-2')
+                  div(class='flex justify-center items-center gap-2')
+                    //- Update Button (Icon)
+                    a(href=`/specialities/update/${speciality._id}`, class='bg-secondary px-3 shadow rounded')
+                      i(class='fas text-sm fa-pencil-alt text-white')  
+                    //- Delete Button (Icon) (ensure it sends a POST/DELETE request)
+                    form(action=`/specialities/delete/${speciality._id}`, method='POST', class='inline-block')
+                      button(type='submit', class='bg-red-500 px-3 shadow rounded')
+                        i(class='fas text-sm fa-trash text-white')
+    else  
+      p No specialities found.
