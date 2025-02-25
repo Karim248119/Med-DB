@@ -19,4 +19,7 @@ router.put(`${base}/:id`, controller.updateAppointment);
 // Delete
 router.delete(`${base}/:id`, controller.deleteAppointment);
 
+// Get appointments by user ID.
+router.get(`${base}/user/:userId`, controller.getAppointmentByUserId);
+
 module.exports = router;
