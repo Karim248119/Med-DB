@@ -20,6 +20,7 @@ const uploader = multer({ storage: multerStorage });
 const uploadMiddleware = uploader.fields([
   { name: "img", maxCount: 1 },
   { name: "icon", maxCount: 1 },
+  { name: "webIcon", maxCount: 1 },
 ]);
 
 // Get all
@@ -107,7 +108,7 @@ const updateService = async (req, res) => {
     res.status(200).json({ success: true, service });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error updating service" });
+    res.status(500).json({ message: error.message });
   }
 };
 
