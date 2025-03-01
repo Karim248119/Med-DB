@@ -89,14 +89,16 @@ const updateService = async (req, res) => {
   try {
     const id = req.params.id;
     const updatedData = { ...req.body };
+
     if (req.files) {
-      if (req.files.img) {
+      if (req.files.img && req.files.img[0]) {
         updatedData.img = `/images/services/${req.files.img[0].filename}`;
       }
-      if (req.files.icon) {
+      if (req.files.icon && req.files.icon[0]) {
         updatedData.icon = `/images/services/${req.files.icon[0].filename}`;
       }
-      if (req.files.webIcon) {
+      if (req.files.webIcon && req.files.webIcon[0]) {
+        // Only update if webIcon exists
         updatedData.webIcon = `/images/services/${req.files.webIcon[0].filename}`;
       }
     }
@@ -108,7 +110,7 @@ const updateService = async (req, res) => {
     res.status(200).json({ success: true, service });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error updating service" });
   }
 };
 
