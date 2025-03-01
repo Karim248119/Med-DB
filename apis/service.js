@@ -73,6 +73,7 @@ const addService = async (req, res) => {
       videoSrc,
       img: `/images/services/${req.files.img[0].filename}`,
       icon: `/images/services/${req.files.icon[0].filename}`,
+      webIcon: `/images/services/${req.files.webIcon[0].filename}`,
     };
     const newService = await spMethod.create(serviceData);
     res.status(201).json({ message: "Service added successfully", newService });
