@@ -95,6 +95,9 @@ const updateService = async (req, res) => {
       if (req.files.icon) {
         updatedData.icon = `/images/services/${req.files.icon[0].filename}`;
       }
+      if (req.files.webIcon) {
+        updatedData.webIcon = `/images/services/${req.files.webIcon[0].filename}`;
+      }
     }
 
     const service = await spMethod.update(id, updatedData);
