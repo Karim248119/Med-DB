@@ -20,10 +20,10 @@ const uploader = multer({ storage: multerStorage });
 const uploadMiddleware = uploader.fields([
   { name: "img", maxCount: 1 },
   { name: "icon", maxCount: 1 },
-  { name: "webIcon", maxCount: 1 },
+  { name: "webIcon", maxCount: 1 }, // Added webIcon
 ]);
 
-// Get all
+// Get all services
 const getAllServices = async (req, res) => {
   try {
     const { page = 1, limit = 100 } = req.query;
@@ -45,7 +45,7 @@ const getAllServices = async (req, res) => {
   }
 };
 
-// Get by ID
+// Get one service by ID
 const getOneService = async (req, res) => {
   try {
     const id = req.params.id;
@@ -59,13 +59,18 @@ const getOneService = async (req, res) => {
     res.status(500).json({ message: "Error fetching service" });
   }
 };
-//add
+
+// Add service
 const addService = async (req, res) => {
   try {
+    console.log("Files received:", req.files); // Debugging line
+
     const { title, description, videoSrc } = req.body;
 
-    if (!req.files || !req.files.img || !req.files.icon) {
-      return res.status(400).json({ message: "Image or icon upload failed" });
+    if (!req.files || !req.files.img || !req.files.icon || !req.files.webIcon) {
+      return res
+        .status(400)
+        .json({ message: "Image, icon, or webIcon upload failed" });
     }
 
     const serviceData = {
@@ -76,6 +81,7 @@ const addService = async (req, res) => {
       icon: `/images/services/${req.files.icon[0].filename}`,
       webIcon: `/images/services/${req.files.webIcon[0].filename}`,
     };
+
     const newService = await spMethod.create(serviceData);
     res.status(201).json({ message: "Service added successfully", newService });
   } catch (error) {
@@ -84,7 +90,7 @@ const addService = async (req, res) => {
   }
 };
 
-// Update
+// Update service
 const updateService = async (req, res) => {
   try {
     const id = req.params.id;
@@ -98,7 +104,6 @@ const updateService = async (req, res) => {
         updatedData.icon = `/images/services/${req.files.icon[0].filename}`;
       }
       if (req.files.webIcon && req.files.webIcon[0]) {
-        // Only update if webIcon exists
         updatedData.webIcon = `/images/services/${req.files.webIcon[0].filename}`;
       }
     }

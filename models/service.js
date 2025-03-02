@@ -6,7 +6,7 @@ const serviceSchema = new mongoose.Schema({
   img: { type: String, required: true },
   videoSrc: { type: String },
   icon: { type: String },
-  webIcon: { type: String, required: false },
+  webIcon: { type: String },
 });
 const service = mongoose.model("service", serviceSchema);
 
